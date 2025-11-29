@@ -1,0 +1,47 @@
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local player = Players.LocalPlayer
+
+local saveEvent = ReplicatedStorage:WaitForChild("SaveSlotEvent")
+local tpEvent = ReplicatedStorage:WaitForChild("TeleportSlotEvent")
+
+local gui = Instance.new("ScreenGui", player.PlayerGui)
+gui.Name = "MultiSlotSaveGUI"
+
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0,260,0,210)
+frame.Position = UDim2.new(0,20,0,80)
+frame.BackgroundColor3 = Color3.fromRGB(40,40,40)
+frame.BorderSizePixel = 0
+
+local function makeButton(name, y)
+    local btn = Instance.new("TextButton", frame)
+    btn.Size = UDim2.new(1,-20,0,35)
+    btn.Position = UDim2.new(0,10,0,y)
+    btn.Text = name
+    btn.Font = Enum.Font.SourceSansBold
+    btn.TextSize = 20
+    btn.TextColor3 = Color3.new(1,1,1)
+    btn.BackgroundColor3 = Color3.fromRGB(0,150,255)
+    return btn
+end
+
+local save1 = makeButton("Save Slot 1", 10)
+local tp1   = makeButton("Teleport Slot 1", 50)
+
+local save2 = makeButton("Save Slot 2", 90)
+local tp2   = makeButton("Teleport Slot 2", 130)
+
+local save3 = makeButton("Save Slot 3", 170)
+local tp3   = makeButton("Teleport Slot 3", 210)
+
+-- Events
+save1.MouseButton1Click:Connect(function() saveEvent:FireServer("slot1") end)
+tp1.MouseButton1Click:Connect(function() tpEvent:FireServer("slot1") end)
+
+save2.MouseButton1Click:Connect(function() saveEvent:FireServer("slot2") end)
+tp2.MouseButton1Click:Connect(function() tpEvent:FireServer("slot2") end)
+
+save3.MouseButton1Click:Connect(function() saveEvent:FireServer("slot3") end)
+tp3.MouseButton1Click:Connect(function() tpEvent:FireServer("slot3") end)
